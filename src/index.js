@@ -1,4 +1,14 @@
+import Button from '@material-ui/core/Button';
 import React from 'react';
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom';
 
-render(<h1>Working</h1>, document.getElementById('app'));
+
+function App() {
+  return (
+    <Button variant="contained" color="primary">
+      Hello World
+    </Button>
+  );
+}
+
+ReactDOM.render(<App />, document.querySelector('#app'));

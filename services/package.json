@@ -10,6 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
     "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-watch": "^7.0.0"
   }
 }
