@@ -4,10 +4,14 @@ const io = socketIO(port);
 
 io.on('connection', function (socket) {
   console.log('connection established!');
-  socket.on('message', function (data) {
-    console.log('Message recieved:', data);
+
+  socket.on('newChatMessage', function (data) {
+    io.emit('newChatMessage', data);
   });
-  socket.on('disconnect', function () { });
+
+  socket.on('disconnect', function () {
+    console.log('Disconnected!!');
+  });
 });
 
 console.log(`Server listening on Port: ${port}`);

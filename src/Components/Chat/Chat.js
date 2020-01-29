@@ -1,8 +1,11 @@
 import React from 'react';
 import MessageBox from './MessageBox';
 import Messages from './Messages';
+import useChat from './Messages/_useChat';
 
 const Chat = () => {
+  const { messages, senMessage } = useChat();
+
   return (
     <div>
       <Messages messages={[
@@ -13,7 +16,7 @@ const Chat = () => {
         'Message 5',
         'Message 6',
       ]} />
-      <MessageBox onSendMessage={message => console.log(message)} />
+      <MessageBox onSendMessage={message => senMessage({ message })} />
     </div>);
 };
 
