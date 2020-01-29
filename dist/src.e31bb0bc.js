@@ -53435,24 +53435,27 @@ var _ListItemAvatar = _interopRequireDefault(require("@material-ui/core/ListItem
 
 var _Avatar = _interopRequireDefault(require("@material-ui/core/Avatar"));
 
-var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function AlignItemsList() {
-  return _react.default.createElement(_List.default, null, _react.default.createElement(_ListItem.default, {
-    alignItems: "flex-start"
-  }, _react.default.createElement(_ListItemAvatar.default, null, _react.default.createElement(_Avatar.default, {
-    alt: "Travis Howard",
-    src: "http://placekitten.com/200/200"
-  })), _react.default.createElement(_ListItemText.default, {
-    primary: "Summer BBQ"
-  })), _react.default.createElement(_Divider.default, {
-    variant: "inset",
-    component: "li"
+/* eslint-disable indent */
+function AlignItemsList(props) {
+  return _react.default.createElement(_List.default, null, props.messages.flatMap(function (item, index) {
+    return [_react.default.createElement(_ListItem.default, {
+      alignItems: "flex-start",
+      key: index
+    }, _react.default.createElement(_ListItemAvatar.default, null, _react.default.createElement(_Avatar.default, {
+      alt: "Travis Howard",
+      src: "http://placekitten.com/200/200"
+    })), _react.default.createElement(_ListItemText.default, {
+      primary: "Summer BBQ"
+    })), _react.default.createElement(_Divider.default, {
+      key: index,
+      variant: "inset",
+      component: "li"
+    })];
   }));
 }
-},{"react":"../node_modules/react/index.js","@material-ui/core/List":"../node_modules/@material-ui/core/esm/List/index.js","@material-ui/core/ListItem":"../node_modules/@material-ui/core/esm/ListItem/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/esm/Divider/index.js","@material-ui/core/ListItemText":"../node_modules/@material-ui/core/esm/ListItemText/index.js","@material-ui/core/ListItemAvatar":"../node_modules/@material-ui/core/esm/ListItemAvatar/index.js","@material-ui/core/Avatar":"../node_modules/@material-ui/core/esm/Avatar/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/esm/Typography/index.js"}],"Components/Chat/Messages/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@material-ui/core/List":"../node_modules/@material-ui/core/esm/List/index.js","@material-ui/core/ListItem":"../node_modules/@material-ui/core/esm/ListItem/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/esm/Divider/index.js","@material-ui/core/ListItemText":"../node_modules/@material-ui/core/esm/ListItemText/index.js","@material-ui/core/ListItemAvatar":"../node_modules/@material-ui/core/esm/ListItemAvatar/index.js","@material-ui/core/Avatar":"../node_modules/@material-ui/core/esm/Avatar/index.js"}],"Components/Chat/Messages/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
