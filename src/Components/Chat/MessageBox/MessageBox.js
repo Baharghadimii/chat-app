@@ -8,7 +8,10 @@ const MessageBox = () => {
     fullWidth
     multiline
     label="Message"
-    rows="4" />;
+    rows="4"
+    onChange={e => setMessage(e.target.value)}
+    onKeyDown={e => e.preventDefault()}
+    value={message} />;
 
 };
 export default MessageBox;
