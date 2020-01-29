@@ -50764,15 +50764,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
-
 var _TextField = _interopRequireDefault(require("@material-ui/core/TextField"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = _interopRequireWildcard(require("react"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -50782,30 +50782,37 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var MessageBox = function MessageBox() {
-  var _useState = (0, _react.useState)(''),
+var MessageBox = function MessageBox(_ref) {
+  var pushSendMessage = _ref.onSendMessage;
+
+  var _useState = (0, _react.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
       message = _useState2[0],
       setMessage = _useState2[1];
 
   return _react.default.createElement(_TextField.default, {
     fullWidth: true,
-    multiline: true,
     label: "Message",
+    margin: "normal",
+    multiline: true,
+    onChange: function onChange(evt) {
+      return setMessage(evt.target.value);
+    },
+    onKeyDown: function onKeyDown(evt) {
+      if (evt.key === "Enter") {
+        evt.preventDefault();
+        pushSendMessage(message);
+        setMessage("");
+      }
+    },
     rows: "4",
-    onChange: function onChange(e) {
-      return setMessage(e.target.value);
-    },
-    onKeyDown: function onKeyDown(e) {
-      return e.preventDefault();
-    },
     value: message
   });
 };
 
 var _default = MessageBox;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@material-ui/core/TextField":"../node_modules/@material-ui/core/esm/TextField/index.js"}],"Components/Chat/MessageBox/index.js":[function(require,module,exports) {
+},{"@material-ui/core/TextField":"../node_modules/@material-ui/core/esm/TextField/index.js","react":"../node_modules/react/index.js"}],"Components/Chat/MessageBox/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50819,7 +50826,443 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _default = _MessageBox.default;
 exports.default = _default;
-},{"./MessageBox":"Components/Chat/MessageBox/MessageBox.js"}],"../node_modules/@material-ui/core/esm/NoSsr/NoSsr.js":[function(require,module,exports) {
+},{"./MessageBox":"Components/Chat/MessageBox/MessageBox.js"}],"../node_modules/@material-ui/core/esm/internal/svg-icons/Person.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _createSvgIcon = _interopRequireDefault(require("./createSvgIcon"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @ignore - internal component.
+ */
+var _default = (0, _createSvgIcon.default)(_react.default.createElement("path", {
+  d: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+}), 'Person');
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./createSvgIcon":"../node_modules/@material-ui/core/esm/internal/svg-icons/createSvgIcon.js"}],"../node_modules/@material-ui/core/esm/Avatar/Avatar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _Person = _interopRequireDefault(require("../internal/svg-icons/Person"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexShrink: 0,
+      width: 40,
+      height: 40,
+      fontFamily: theme.typography.fontFamily,
+      fontSize: theme.typography.pxToRem(20),
+      lineHeight: 1,
+      borderRadius: '50%',
+      overflow: 'hidden',
+      userSelect: 'none'
+    },
+
+    /* Styles applied to the root element if not `src` or `srcSet`. */
+    colorDefault: {
+      color: theme.palette.background.default,
+      backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[600]
+    },
+
+    /* Styles applied to the root element if `variant="circle"`. */
+    circle: {},
+
+    /* Styles applied to the root element if `variant="rounded"`. */
+    rounded: {
+      borderRadius: theme.shape.borderRadius
+    },
+
+    /* Styles applied to the root element if `variant="square"`. */
+    square: {
+      borderRadius: 0
+    },
+
+    /* Styles applied to the img element if either `src` or `srcSet` is defined. */
+    img: {
+      width: '100%',
+      height: '100%',
+      textAlign: 'center',
+      // Handle non-square image. The property isn't supported by IE 11.
+      objectFit: 'cover',
+      // Hide alt text.
+      color: 'transparent',
+      // Hide the image broken icon, only works on Chrome.
+      textIndent: 10000
+    },
+
+    /* Styles applied to the fallback icon */
+    fallback: {
+      width: '75%',
+      height: '75%'
+    }
+  };
+};
+
+exports.styles = styles;
+
+function useLoaded(_ref) {
+  var src = _ref.src,
+      srcSet = _ref.srcSet;
+
+  var _React$useState = _react.default.useState(false),
+      loaded = _React$useState[0],
+      setLoaded = _React$useState[1];
+
+  _react.default.useEffect(function () {
+    if (!src && !srcSet) {
+      return undefined;
+    }
+
+    setLoaded(false);
+    var active = true;
+    var image = new Image();
+    image.src = src;
+    image.srcSet = srcSet;
+
+    image.onload = function () {
+      if (!active) {
+        return;
+      }
+
+      setLoaded('loaded');
+    };
+
+    image.onerror = function () {
+      if (!active) {
+        return;
+      }
+
+      setLoaded('error');
+    };
+
+    return function () {
+      active = false;
+    };
+  }, [src, srcSet]);
+
+  return loaded;
+}
+
+var Avatar = _react.default.forwardRef(function Avatar(props, ref) {
+  var alt = props.alt,
+      childrenProp = props.children,
+      classes = props.classes,
+      className = props.className,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? 'div' : _props$component,
+      imgProps = props.imgProps,
+      sizes = props.sizes,
+      src = props.src,
+      srcSet = props.srcSet,
+      _props$variant = props.variant,
+      variant = _props$variant === void 0 ? 'circle' : _props$variant,
+      other = (0, _objectWithoutProperties2.default)(props, ["alt", "children", "classes", "className", "component", "imgProps", "sizes", "src", "srcSet", "variant"]);
+  var children = null; // Use a hook instead of onError on the img element to support server-side rendering.
+
+  var loaded = useLoaded({
+    src: src,
+    srcSet: srcSet
+  });
+  var hasImg = src || srcSet;
+  var hasImgNotFailing = hasImg && loaded !== 'error';
+
+  if (hasImgNotFailing) {
+    children = _react.default.createElement("img", (0, _extends2.default)({
+      alt: alt,
+      src: src,
+      srcSet: srcSet,
+      sizes: sizes,
+      className: classes.img
+    }, imgProps));
+  } else if (childrenProp != null) {
+    children = childrenProp;
+  } else if (hasImg && alt) {
+    children = alt[0];
+  } else {
+    children = _react.default.createElement(_Person.default, {
+      className: classes.fallback
+    });
+  }
+
+  return _react.default.createElement(Component, (0, _extends2.default)({
+    className: (0, _clsx.default)(classes.root, classes.system, classes[variant], className, !hasImgNotFailing && classes.colorDefault),
+    ref: ref
+  }, other), children);
+});
+
+"development" !== "production" ? Avatar.propTypes = {
+  /**
+   * Used in combination with `src` or `srcSet` to
+   * provide an alt attribute for the rendered `img` element.
+   */
+  alt: _propTypes.default.string,
+
+  /**
+   * Used to render icon or text elements inside the Avatar if `src` is not set.
+   * This can be an element, or just a string.
+   */
+  children: _propTypes.default.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
+  component: _propTypes.default.elementType,
+
+  /**
+   * Attributes applied to the `img` element if the component is used to display an image.
+   * It can be used to listen for the loading error event.
+   */
+  imgProps: _propTypes.default.object,
+
+  /**
+   * The `sizes` attribute for the `img` element.
+   */
+  sizes: _propTypes.default.string,
+
+  /**
+   * The `src` attribute for the `img` element.
+   */
+  src: _propTypes.default.string,
+
+  /**
+   * The `srcSet` attribute for the `img` element.
+   * Use this attribute for responsive image display.
+   */
+  srcSet: _propTypes.default.string,
+
+  /**
+   * The shape of the avatar.
+   */
+  variant: _propTypes.default.oneOf(['circle', 'rounded', 'square'])
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiAvatar'
+})(Avatar);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","clsx":"../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../node_modules/@material-ui/core/esm/styles/withStyles.js","../internal/svg-icons/Person":"../node_modules/@material-ui/core/esm/internal/svg-icons/Person.js"}],"../node_modules/@material-ui/core/esm/Avatar/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _Avatar.default;
+  }
+});
+
+var _Avatar = _interopRequireDefault(require("./Avatar"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./Avatar":"../node_modules/@material-ui/core/esm/Avatar/Avatar.js"}],"../node_modules/@material-ui/core/esm/Divider/Divider.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.styles = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
+var _clsx = _interopRequireDefault(require("clsx"));
+
+var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
+
+var _colorManipulator = require("../styles/colorManipulator");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      height: 1,
+      margin: 0,
+      // Reset browser default style.
+      border: 'none',
+      flexShrink: 0,
+      backgroundColor: theme.palette.divider
+    },
+
+    /* Styles applied to the root element if `absolute={true}`. */
+    absolute: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      width: '100%'
+    },
+
+    /* Styles applied to the root element if `variant="inset"`. */
+    inset: {
+      marginLeft: 72
+    },
+
+    /* Styles applied to the root element if `light={true}`. */
+    light: {
+      backgroundColor: (0, _colorManipulator.fade)(theme.palette.divider, 0.08)
+    },
+
+    /* Styles applied to the root element if `variant="middle"`. */
+    middle: {
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2)
+    },
+
+    /* Styles applied to the root element if `orientation="vertical"`. */
+    vertical: {
+      height: '100%',
+      width: 1
+    }
+  };
+};
+
+exports.styles = styles;
+
+var Divider = _react.default.forwardRef(function Divider(props, ref) {
+  var _props$absolute = props.absolute,
+      absolute = _props$absolute === void 0 ? false : _props$absolute,
+      classes = props.classes,
+      className = props.className,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? 'hr' : _props$component,
+      _props$light = props.light,
+      light = _props$light === void 0 ? false : _props$light,
+      _props$orientation = props.orientation,
+      orientation = _props$orientation === void 0 ? 'horizontal' : _props$orientation,
+      _props$role = props.role,
+      role = _props$role === void 0 ? Component !== 'hr' ? 'separator' : undefined : _props$role,
+      _props$variant = props.variant,
+      variant = _props$variant === void 0 ? 'fullWidth' : _props$variant,
+      other = (0, _objectWithoutProperties2.default)(props, ["absolute", "classes", "className", "component", "light", "orientation", "role", "variant"]);
+  return _react.default.createElement(Component, (0, _extends2.default)({
+    className: (0, _clsx.default)(classes.root, className, variant !== 'fullWidth' && classes[variant], absolute && classes.absolute, light && classes.light, {
+      vertical: classes.vertical
+    }[orientation]),
+    role: role,
+    ref: ref
+  }, other));
+});
+
+"development" !== "production" ? Divider.propTypes = {
+  /**
+   * Absolutely position the element.
+   */
+  absolute: _propTypes.default.bool,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: _propTypes.default.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: _propTypes.default.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a DOM element or a component.
+   */
+  component: _propTypes.default.elementType,
+
+  /**
+   * If `true`, the divider will have a lighter color.
+   */
+  light: _propTypes.default.bool,
+
+  /**
+   * The divider orientation.
+   */
+  orientation: _propTypes.default.oneOf(['horizontal', 'vertical']),
+
+  /**
+   * @ignore
+   */
+  role: _propTypes.default.string,
+
+  /**
+   * The variant to use.
+   */
+  variant: _propTypes.default.oneOf(['fullWidth', 'inset', 'middle'])
+} : void 0;
+
+var _default = (0, _withStyles.default)(styles, {
+  name: 'MuiDivider'
+})(Divider);
+
+exports.default = _default;
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","clsx":"../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../node_modules/@material-ui/core/esm/styles/withStyles.js","../styles/colorManipulator":"../node_modules/@material-ui/core/esm/styles/colorManipulator.js"}],"../node_modules/@material-ui/core/esm/Divider/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function () {
+    return _Divider.default;
+  }
+});
+
+var _Divider = _interopRequireDefault(require("./Divider"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./Divider":"../node_modules/@material-ui/core/esm/Divider/Divider.js"}],"../node_modules/@material-ui/core/esm/NoSsr/NoSsr.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52417,7 +52860,7 @@ Object.defineProperty(exports, "default", {
 var _ListItem = _interopRequireDefault(require("./ListItem"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./ListItem":"../node_modules/@material-ui/core/esm/ListItem/ListItem.js"}],"../node_modules/@material-ui/core/esm/Divider/Divider.js":[function(require,module,exports) {
+},{"./ListItem":"../node_modules/@material-ui/core/esm/ListItem/ListItem.js"}],"../node_modules/@material-ui/core/esm/ListItemAvatar/ListItemAvatar.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52437,86 +52880,46 @@ var _clsx = _interopRequireDefault(require("clsx"));
 
 var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
 
-var _colorManipulator = require("../styles/colorManipulator");
+var _ListContext = _interopRequireDefault(require("../List/ListContext"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var styles = function styles(theme) {
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      height: 1,
-      margin: 0,
-      // Reset browser default style.
-      border: 'none',
-      flexShrink: 0,
-      backgroundColor: theme.palette.divider
-    },
+var styles = {
+  /* Styles applied to the root element. */
+  root: {
+    minWidth: 56,
+    flexShrink: 0
+  },
 
-    /* Styles applied to the root element if `absolute={true}`. */
-    absolute: {
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      width: '100%'
-    },
-
-    /* Styles applied to the root element if `variant="inset"`. */
-    inset: {
-      marginLeft: 72
-    },
-
-    /* Styles applied to the root element if `light={true}`. */
-    light: {
-      backgroundColor: (0, _colorManipulator.fade)(theme.palette.divider, 0.08)
-    },
-
-    /* Styles applied to the root element if `variant="middle"`. */
-    middle: {
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2)
-    },
-
-    /* Styles applied to the root element if `orientation="vertical"`. */
-    vertical: {
-      height: '100%',
-      width: 1
-    }
-  };
+  /* Styles applied to the root element when the parent `ListItem` uses `alignItems="flex-start"`. */
+  alignItemsFlexStart: {
+    marginTop: 8
+  }
 };
+/**
+ * A simple wrapper to apply `List` styles to an `Avatar`.
+ */
 
 exports.styles = styles;
 
-var Divider = _react.default.forwardRef(function Divider(props, ref) {
-  var _props$absolute = props.absolute,
-      absolute = _props$absolute === void 0 ? false : _props$absolute,
-      classes = props.classes,
+var ListItemAvatar = _react.default.forwardRef(function ListItemAvatar(props, ref) {
+  var classes = props.classes,
       className = props.className,
-      _props$component = props.component,
-      Component = _props$component === void 0 ? 'hr' : _props$component,
-      _props$light = props.light,
-      light = _props$light === void 0 ? false : _props$light,
-      _props$orientation = props.orientation,
-      orientation = _props$orientation === void 0 ? 'horizontal' : _props$orientation,
-      _props$role = props.role,
-      role = _props$role === void 0 ? Component !== 'hr' ? 'separator' : undefined : _props$role,
-      _props$variant = props.variant,
-      variant = _props$variant === void 0 ? 'fullWidth' : _props$variant,
-      other = (0, _objectWithoutProperties2.default)(props, ["absolute", "classes", "className", "component", "light", "orientation", "role", "variant"]);
-  return _react.default.createElement(Component, (0, _extends2.default)({
-    className: (0, _clsx.default)(classes.root, className, variant !== 'fullWidth' && classes[variant], absolute && classes.absolute, light && classes.light, {
-      vertical: classes.vertical
-    }[orientation]),
-    role: role,
+      other = (0, _objectWithoutProperties2.default)(props, ["classes", "className"]);
+
+  var context = _react.default.useContext(_ListContext.default);
+
+  return _react.default.createElement("div", (0, _extends2.default)({
+    className: (0, _clsx.default)(classes.root, className, context.alignItems === 'flex-start' && classes.alignItemsFlexStart),
     ref: ref
   }, other));
 });
 
-"development" !== "production" ? Divider.propTypes = {
+"development" !== "production" ? ListItemAvatar.propTypes = {
   /**
-   * Absolutely position the element.
+   * The content of the component – normally `Avatar`.
    */
-  absolute: _propTypes.default.bool,
+  children: _propTypes.default.element.isRequired,
 
   /**
    * Override or extend the styles applied to the component.
@@ -52527,41 +52930,15 @@ var Divider = _react.default.forwardRef(function Divider(props, ref) {
   /**
    * @ignore
    */
-  className: _propTypes.default.string,
-
-  /**
-   * The component used for the root node.
-   * Either a string to use a DOM element or a component.
-   */
-  component: _propTypes.default.elementType,
-
-  /**
-   * If `true`, the divider will have a lighter color.
-   */
-  light: _propTypes.default.bool,
-
-  /**
-   * The divider orientation.
-   */
-  orientation: _propTypes.default.oneOf(['horizontal', 'vertical']),
-
-  /**
-   * @ignore
-   */
-  role: _propTypes.default.string,
-
-  /**
-   * The variant to use.
-   */
-  variant: _propTypes.default.oneOf(['fullWidth', 'inset', 'middle'])
+  className: _propTypes.default.string
 } : void 0;
 
 var _default = (0, _withStyles.default)(styles, {
-  name: 'MuiDivider'
-})(Divider);
+  name: 'MuiListItemAvatar'
+})(ListItemAvatar);
 
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","clsx":"../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../node_modules/@material-ui/core/esm/styles/withStyles.js","../styles/colorManipulator":"../node_modules/@material-ui/core/esm/styles/colorManipulator.js"}],"../node_modules/@material-ui/core/esm/Divider/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","clsx":"../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../node_modules/@material-ui/core/esm/styles/withStyles.js","../List/ListContext":"../node_modules/@material-ui/core/esm/List/ListContext.js"}],"../node_modules/@material-ui/core/esm/ListItemAvatar/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52570,14 +52947,14 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "default", {
   enumerable: true,
   get: function () {
-    return _Divider.default;
+    return _ListItemAvatar.default;
   }
 });
 
-var _Divider = _interopRequireDefault(require("./Divider"));
+var _ListItemAvatar = _interopRequireDefault(require("./ListItemAvatar"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Divider":"../node_modules/@material-ui/core/esm/Divider/Divider.js"}],"../node_modules/@material-ui/core/esm/Typography/Typography.js":[function(require,module,exports) {
+},{"./ListItemAvatar":"../node_modules/@material-ui/core/esm/ListItemAvatar/ListItemAvatar.js"}],"../node_modules/@material-ui/core/esm/Typography/Typography.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53043,101 +53420,7 @@ Object.defineProperty(exports, "default", {
 var _ListItemText = _interopRequireDefault(require("./ListItemText"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./ListItemText":"../node_modules/@material-ui/core/esm/ListItemText/ListItemText.js"}],"../node_modules/@material-ui/core/esm/ListItemAvatar/ListItemAvatar.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.styles = void 0;
-
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
-
-var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutProperties"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _clsx = _interopRequireDefault(require("clsx"));
-
-var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
-
-var _ListContext = _interopRequireDefault(require("../List/ListContext"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = {
-  /* Styles applied to the root element. */
-  root: {
-    minWidth: 56,
-    flexShrink: 0
-  },
-
-  /* Styles applied to the root element when the parent `ListItem` uses `alignItems="flex-start"`. */
-  alignItemsFlexStart: {
-    marginTop: 8
-  }
-};
-/**
- * A simple wrapper to apply `List` styles to an `Avatar`.
- */
-
-exports.styles = styles;
-
-var ListItemAvatar = _react.default.forwardRef(function ListItemAvatar(props, ref) {
-  var classes = props.classes,
-      className = props.className,
-      other = (0, _objectWithoutProperties2.default)(props, ["classes", "className"]);
-
-  var context = _react.default.useContext(_ListContext.default);
-
-  return _react.default.createElement("div", (0, _extends2.default)({
-    className: (0, _clsx.default)(classes.root, className, context.alignItems === 'flex-start' && classes.alignItemsFlexStart),
-    ref: ref
-  }, other));
-});
-
-"development" !== "production" ? ListItemAvatar.propTypes = {
-  /**
-   * The content of the component – normally `Avatar`.
-   */
-  children: _propTypes.default.element.isRequired,
-
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  classes: _propTypes.default.object.isRequired,
-
-  /**
-   * @ignore
-   */
-  className: _propTypes.default.string
-} : void 0;
-
-var _default = (0, _withStyles.default)(styles, {
-  name: 'MuiListItemAvatar'
-})(ListItemAvatar);
-
-exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","clsx":"../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../node_modules/@material-ui/core/esm/styles/withStyles.js","../List/ListContext":"../node_modules/@material-ui/core/esm/List/ListContext.js"}],"../node_modules/@material-ui/core/esm/ListItemAvatar/index.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function () {
-    return _ListItemAvatar.default;
-  }
-});
-
-var _ListItemAvatar = _interopRequireDefault(require("./ListItemAvatar"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./ListItemAvatar":"../node_modules/@material-ui/core/esm/ListItemAvatar/ListItemAvatar.js"}],"../node_modules/@material-ui/core/esm/internal/svg-icons/Person.js":[function(require,module,exports) {
+},{"./ListItemText":"../node_modules/@material-ui/core/esm/ListItemText/ListItemText.js"}],"Components/Chat/Messages/Messages.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53145,317 +53428,44 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _Avatar = _interopRequireDefault(require("@material-ui/core/Avatar"));
 
-var _createSvgIcon = _interopRequireDefault(require("./createSvgIcon"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @ignore - internal component.
- */
-var _default = (0, _createSvgIcon.default)(_react.default.createElement("path", {
-  d: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-}), 'Person');
-
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","./createSvgIcon":"../node_modules/@material-ui/core/esm/internal/svg-icons/createSvgIcon.js"}],"../node_modules/@material-ui/core/esm/Avatar/Avatar.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.styles = void 0;
-
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/extends"));
-
-var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/objectWithoutProperties"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _clsx = _interopRequireDefault(require("clsx"));
-
-var _withStyles = _interopRequireDefault(require("../styles/withStyles"));
-
-var _Person = _interopRequireDefault(require("../internal/svg-icons/Person"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = function styles(theme) {
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      position: 'relative',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexShrink: 0,
-      width: 40,
-      height: 40,
-      fontFamily: theme.typography.fontFamily,
-      fontSize: theme.typography.pxToRem(20),
-      lineHeight: 1,
-      borderRadius: '50%',
-      overflow: 'hidden',
-      userSelect: 'none'
-    },
-
-    /* Styles applied to the root element if not `src` or `srcSet`. */
-    colorDefault: {
-      color: theme.palette.background.default,
-      backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[400] : theme.palette.grey[600]
-    },
-
-    /* Styles applied to the root element if `variant="circle"`. */
-    circle: {},
-
-    /* Styles applied to the root element if `variant="rounded"`. */
-    rounded: {
-      borderRadius: theme.shape.borderRadius
-    },
-
-    /* Styles applied to the root element if `variant="square"`. */
-    square: {
-      borderRadius: 0
-    },
-
-    /* Styles applied to the img element if either `src` or `srcSet` is defined. */
-    img: {
-      width: '100%',
-      height: '100%',
-      textAlign: 'center',
-      // Handle non-square image. The property isn't supported by IE 11.
-      objectFit: 'cover',
-      // Hide alt text.
-      color: 'transparent',
-      // Hide the image broken icon, only works on Chrome.
-      textIndent: 10000
-    },
-
-    /* Styles applied to the fallback icon */
-    fallback: {
-      width: '75%',
-      height: '75%'
-    }
-  };
-};
-
-exports.styles = styles;
-
-function useLoaded(_ref) {
-  var src = _ref.src,
-      srcSet = _ref.srcSet;
-
-  var _React$useState = _react.default.useState(false),
-      loaded = _React$useState[0],
-      setLoaded = _React$useState[1];
-
-  _react.default.useEffect(function () {
-    if (!src && !srcSet) {
-      return undefined;
-    }
-
-    setLoaded(false);
-    var active = true;
-    var image = new Image();
-    image.src = src;
-    image.srcSet = srcSet;
-
-    image.onload = function () {
-      if (!active) {
-        return;
-      }
-
-      setLoaded('loaded');
-    };
-
-    image.onerror = function () {
-      if (!active) {
-        return;
-      }
-
-      setLoaded('error');
-    };
-
-    return function () {
-      active = false;
-    };
-  }, [src, srcSet]);
-
-  return loaded;
-}
-
-var Avatar = _react.default.forwardRef(function Avatar(props, ref) {
-  var alt = props.alt,
-      childrenProp = props.children,
-      classes = props.classes,
-      className = props.className,
-      _props$component = props.component,
-      Component = _props$component === void 0 ? 'div' : _props$component,
-      imgProps = props.imgProps,
-      sizes = props.sizes,
-      src = props.src,
-      srcSet = props.srcSet,
-      _props$variant = props.variant,
-      variant = _props$variant === void 0 ? 'circle' : _props$variant,
-      other = (0, _objectWithoutProperties2.default)(props, ["alt", "children", "classes", "className", "component", "imgProps", "sizes", "src", "srcSet", "variant"]);
-  var children = null; // Use a hook instead of onError on the img element to support server-side rendering.
-
-  var loaded = useLoaded({
-    src: src,
-    srcSet: srcSet
-  });
-  var hasImg = src || srcSet;
-  var hasImgNotFailing = hasImg && loaded !== 'error';
-
-  if (hasImgNotFailing) {
-    children = _react.default.createElement("img", (0, _extends2.default)({
-      alt: alt,
-      src: src,
-      srcSet: srcSet,
-      sizes: sizes,
-      className: classes.img
-    }, imgProps));
-  } else if (childrenProp != null) {
-    children = childrenProp;
-  } else if (hasImg && alt) {
-    children = alt[0];
-  } else {
-    children = _react.default.createElement(_Person.default, {
-      className: classes.fallback
-    });
-  }
-
-  return _react.default.createElement(Component, (0, _extends2.default)({
-    className: (0, _clsx.default)(classes.root, classes.system, classes[variant], className, !hasImgNotFailing && classes.colorDefault),
-    ref: ref
-  }, other), children);
-});
-
-"development" !== "production" ? Avatar.propTypes = {
-  /**
-   * Used in combination with `src` or `srcSet` to
-   * provide an alt attribute for the rendered `img` element.
-   */
-  alt: _propTypes.default.string,
-
-  /**
-   * Used to render icon or text elements inside the Avatar if `src` is not set.
-   * This can be an element, or just a string.
-   */
-  children: _propTypes.default.node,
-
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  classes: _propTypes.default.object.isRequired,
-
-  /**
-   * @ignore
-   */
-  className: _propTypes.default.string,
-
-  /**
-   * The component used for the root node.
-   * Either a string to use a DOM element or a component.
-   */
-  component: _propTypes.default.elementType,
-
-  /**
-   * Attributes applied to the `img` element if the component is used to display an image.
-   * It can be used to listen for the loading error event.
-   */
-  imgProps: _propTypes.default.object,
-
-  /**
-   * The `sizes` attribute for the `img` element.
-   */
-  sizes: _propTypes.default.string,
-
-  /**
-   * The `src` attribute for the `img` element.
-   */
-  src: _propTypes.default.string,
-
-  /**
-   * The `srcSet` attribute for the `img` element.
-   * Use this attribute for responsive image display.
-   */
-  srcSet: _propTypes.default.string,
-
-  /**
-   * The shape of the avatar.
-   */
-  variant: _propTypes.default.oneOf(['circle', 'rounded', 'square'])
-} : void 0;
-
-var _default = (0, _withStyles.default)(styles, {
-  name: 'MuiAvatar'
-})(Avatar);
-
-exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js","react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","clsx":"../node_modules/clsx/dist/clsx.m.js","../styles/withStyles":"../node_modules/@material-ui/core/esm/styles/withStyles.js","../internal/svg-icons/Person":"../node_modules/@material-ui/core/esm/internal/svg-icons/Person.js"}],"../node_modules/@material-ui/core/esm/Avatar/index.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "default", {
-  enumerable: true,
-  get: function () {
-    return _Avatar.default;
-  }
-});
-
-var _Avatar = _interopRequireDefault(require("./Avatar"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Avatar":"../node_modules/@material-ui/core/esm/Avatar/Avatar.js"}],"Components/Chat/Messages/Messages.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = AlignItemsList;
-
-var _react = _interopRequireDefault(require("react"));
+var _Divider = _interopRequireDefault(require("@material-ui/core/Divider"));
 
 var _List = _interopRequireDefault(require("@material-ui/core/List"));
 
 var _ListItem = _interopRequireDefault(require("@material-ui/core/ListItem"));
 
-var _Divider = _interopRequireDefault(require("@material-ui/core/Divider"));
+var _ListItemAvatar = _interopRequireDefault(require("@material-ui/core/ListItemAvatar"));
 
 var _ListItemText = _interopRequireDefault(require("@material-ui/core/ListItemText"));
 
-var _ListItemAvatar = _interopRequireDefault(require("@material-ui/core/ListItemAvatar"));
-
-var _Avatar = _interopRequireDefault(require("@material-ui/core/Avatar"));
+var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* eslint-disable indent */
-function AlignItemsList(props) {
-  return _react.default.createElement(_List.default, null, props.messages.flatMap(function (item, index) {
+var Messages = function Messages(_ref) {
+  var messages = _ref.messages;
+  return _react.default.createElement(_List.default, null, messages.flatMap(function (message, index) {
     return [_react.default.createElement(_ListItem.default, {
       alignItems: "flex-start",
       key: index
     }, _react.default.createElement(_ListItemAvatar.default, null, _react.default.createElement(_Avatar.default, {
-      alt: "Travis Howard",
+      alt: "Cute Kitten",
       src: "http://placekitten.com/200/200"
     })), _react.default.createElement(_ListItemText.default, {
-      primary: "Summer BBQ"
+      primary: message
     })), _react.default.createElement(_Divider.default, {
-      key: index,
-      variant: "inset",
-      component: "li"
+      component: "li",
+      key: "divider-" + index,
+      variant: "inset"
     })];
   }));
-}
-},{"react":"../node_modules/react/index.js","@material-ui/core/List":"../node_modules/@material-ui/core/esm/List/index.js","@material-ui/core/ListItem":"../node_modules/@material-ui/core/esm/ListItem/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/esm/Divider/index.js","@material-ui/core/ListItemText":"../node_modules/@material-ui/core/esm/ListItemText/index.js","@material-ui/core/ListItemAvatar":"../node_modules/@material-ui/core/esm/ListItemAvatar/index.js","@material-ui/core/Avatar":"../node_modules/@material-ui/core/esm/Avatar/index.js"}],"Components/Chat/Messages/index.js":[function(require,module,exports) {
+};
+
+var _default = Messages;
+exports.default = _default;
+},{"@material-ui/core/Avatar":"../node_modules/@material-ui/core/esm/Avatar/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/esm/Divider/index.js","@material-ui/core/List":"../node_modules/@material-ui/core/esm/List/index.js","@material-ui/core/ListItem":"../node_modules/@material-ui/core/esm/ListItem/index.js","@material-ui/core/ListItemAvatar":"../node_modules/@material-ui/core/esm/ListItemAvatar/index.js","@material-ui/core/ListItemText":"../node_modules/@material-ui/core/esm/ListItemText/index.js","react":"../node_modules/react/index.js"}],"Components/Chat/Messages/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62865,7 +62875,7 @@ exports.connect = lookup;
 exports.Manager = require('./manager');
 exports.Socket = require('./socket');
 
-},{"./url":"../node_modules/socket.io-client/lib/url.js","socket.io-parser":"../node_modules/socket.io-parser/index.js","./manager":"../node_modules/socket.io-client/lib/manager.js","debug":"../node_modules/debug/src/browser.js","./socket":"../node_modules/socket.io-client/lib/socket.js"}],"Components/Chat/Messages/_useChat.js":[function(require,module,exports) {
+},{"./url":"../node_modules/socket.io-client/lib/url.js","socket.io-parser":"../node_modules/socket.io-parser/index.js","./manager":"../node_modules/socket.io-client/lib/manager.js","debug":"../node_modules/debug/src/browser.js","./socket":"../node_modules/socket.io-client/lib/socket.js"}],"Components/Chat/_useChat.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -62896,25 +62906,26 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var useChat = function useChat() {
-  var socketRef = (0, _react.useRef)();
-
-  var _useState = (0, _react.useState)(),
+  var _useState = (0, _react.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       messages = _useState2[0],
       setMessages = _useState2[1];
 
+  var socketRef = (0, _react.useRef)();
   (0, _react.useEffect)(function () {
-    socketRef.current = (0, _socket.default)('http://localhost:5000');
+    socketRef.current = (0, _socket.default)("http://localhost:5000");
     socketRef.current.on("newChatMessage", function (_ref) {
       var message = _ref.message;
-      setMessages(function (message) {
+      setMessages(function (messages) {
         return [].concat(_toConsumableArray(messages), [message]);
       });
     });
-    return socketRef.current.disconnect();
+    return function () {
+      socketRef.current.disconnect();
+    };
   }, []);
 
-  var sendMessages = function sendMessages(_ref2) {
+  var sendMessage = function sendMessage(_ref2) {
     var message = _ref2.message;
     socketRef.current.emit("newChatMessage", {
       message: message
@@ -62923,7 +62934,7 @@ var useChat = function useChat() {
 
   return {
     messages: messages,
-    sendMessages: sendMessages
+    sendMessage: sendMessage
   };
 };
 
@@ -62943,20 +62954,20 @@ var _MessageBox = _interopRequireDefault(require("./MessageBox"));
 
 var _Messages = _interopRequireDefault(require("./Messages"));
 
-var _useChat2 = _interopRequireDefault(require("./Messages/_useChat"));
+var _useChat2 = _interopRequireDefault(require("./_useChat"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Chat = function Chat() {
   var _useChat = (0, _useChat2.default)(),
       messages = _useChat.messages,
-      senMessage = _useChat.senMessage;
+      sendMessage = _useChat.sendMessage;
 
   return _react.default.createElement("div", null, _react.default.createElement(_Messages.default, {
-    messages: ['Message 1', 'Message 2', 'Message 3', 'Message 4', 'Message 5', 'Message 6']
+    messages: messages
   }), _react.default.createElement(_MessageBox.default, {
     onSendMessage: function onSendMessage(message) {
-      return senMessage({
+      return sendMessage({
         message: message
       });
     }
@@ -62965,7 +62976,7 @@ var Chat = function Chat() {
 
 var _default = Chat;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./MessageBox":"Components/Chat/MessageBox/index.js","./Messages":"Components/Chat/Messages/index.js","./Messages/_useChat":"Components/Chat/Messages/_useChat.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./MessageBox":"Components/Chat/MessageBox/index.js","./Messages":"Components/Chat/Messages/index.js","./_useChat":"Components/Chat/_useChat.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -63006,7 +63017,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49538" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50342" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

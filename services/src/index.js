@@ -1,17 +1,19 @@
-import socketIO from 'socket.io';
-const port = 5000;
-const io = socketIO(port);
+import socketIO from "socket.io";
 
-io.on('connection', function (socket) {
-  console.log('connection established!');
+const PORT = 5000;
 
-  socket.on('newChatMessage', function (data) {
-    io.emit('newChatMessage', data);
+const io = socketIO(PORT);
+
+io.on("connection", function (socket) {
+  console.log("Connection established!");
+
+  socket.on("newChatMessage", data => {
+    io.emit("newChatMessage", data);
   });
 
-  socket.on('disconnect', function () {
-    console.log('Disconnected!!');
+  socket.on("disconnect", function () {
+    console.log("Disconnected!");
   });
 });
 
-console.log(`Server listening on Port: ${port}`);
+console.log(`Server listening on ${PORT}`);

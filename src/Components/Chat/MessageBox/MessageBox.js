@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
+import React, { useState } from "react";
 
-const MessageBox = () => {
-  const [message, setMessage] = useState('');
+const MessageBox = ({ onSendMessage: pushSendMessage }) => {
+  const [message, setMessage] = useState("");
 
-  return <TextField
-    fullWidth
-    multiline
-    label="Message"
-    rows="4"
-    onChange={e => setMessage(e.target.value)}
-    onKeyDown={e => e.preventDefault()}
-    value={message} />;
-
+  return (
+    <TextField
+      fullWidth
+      label="Message"
+      margin="normal"
+      multiline
+      onChange={evt => setMessage(evt.target.value)}
+      onKeyDown={evt => {
+        if (evt.key === "Enter") {
+          evt.preventDefault();
+          pushSendMessage(message);
+          setMessage("");
+        }
+      }}
+      rows="4"
+      value={message}
+    />
+  );
 };
+
 export default MessageBox;
