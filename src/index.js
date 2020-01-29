@@ -1,15 +1,6 @@
-/* eslint-disable no-undef */
-import Button from '@material-ui/core/Button';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Chat from './Components/Chat/Chat';
 
-// eslint-disable-next-line func-style
-function App() {
-  return (
-    <Button variant="contained" color="primary">
-      Hello World
-    </Button>
-  );
-}
-
-ReactDOM.render(<App />, document.querySelector('#app'));
+// eslint-disable-next-line no-undef
+ReactDOM.render(<Chat />, document.querySelector('#app'));
