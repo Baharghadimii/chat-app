@@ -53443,31 +53443,14 @@ function AlignItemsList() {
   return _react.default.createElement(_List.default, null, _react.default.createElement(_ListItem.default, {
     alignItems: "flex-start"
   }, _react.default.createElement(_ListItemAvatar.default, null, _react.default.createElement(_Avatar.default, {
-    alt: "Remy Sharp",
-    src: "/static/images/avatar/1.jpg"
-  })), _react.default.createElement(_ListItemText.default, {
-    primary: "Brunch this weekend?"
-  })), _react.default.createElement(_Divider.default, {
-    variant: "inset",
-    component: "li"
-  }), _react.default.createElement(_ListItem.default, {
-    alignItems: "flex-start"
-  }, _react.default.createElement(_ListItemAvatar.default, null, _react.default.createElement(_Avatar.default, {
     alt: "Travis Howard",
-    src: "/static/images/avatar/2.jpg"
+    src: "http://placekitten.com/200/200"
   })), _react.default.createElement(_ListItemText.default, {
     primary: "Summer BBQ"
   })), _react.default.createElement(_Divider.default, {
     variant: "inset",
     component: "li"
-  }), _react.default.createElement(_ListItem.default, {
-    alignItems: "flex-start"
-  }, _react.default.createElement(_ListItemAvatar.default, null, _react.default.createElement(_Avatar.default, {
-    alt: "Cindy Baker",
-    src: "/static/images/avatar/3.jpg"
-  })), _react.default.createElement(_ListItemText.default, {
-    primary: "Oui Oui"
-  })));
+  }));
 }
 },{"react":"../node_modules/react/index.js","@material-ui/core/List":"../node_modules/@material-ui/core/esm/List/index.js","@material-ui/core/ListItem":"../node_modules/@material-ui/core/esm/ListItem/index.js","@material-ui/core/Divider":"../node_modules/@material-ui/core/esm/Divider/index.js","@material-ui/core/ListItemText":"../node_modules/@material-ui/core/esm/ListItemText/index.js","@material-ui/core/ListItemAvatar":"../node_modules/@material-ui/core/esm/ListItemAvatar/index.js","@material-ui/core/Avatar":"../node_modules/@material-ui/core/esm/Avatar/index.js","@material-ui/core/Typography":"../node_modules/@material-ui/core/esm/Typography/index.js"}],"Components/Chat/Messages/index.js":[function(require,module,exports) {
 "use strict";
